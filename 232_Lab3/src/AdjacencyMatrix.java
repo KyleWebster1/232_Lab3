@@ -33,6 +33,7 @@ public class AdjacencyMatrix {
             e.printStackTrace();
         }
     }
+
     private void printAdjacencyMatrix()
     {
         char A = 'A';
