@@ -89,4 +89,9 @@ public class AdjacencyMatrix {
     {
         return length;
     }
+    
+    public int[][] getAdjacencyMatrix()
+    {
+        return adj;
+    }
 }
