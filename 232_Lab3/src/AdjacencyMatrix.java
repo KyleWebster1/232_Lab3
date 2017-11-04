@@ -94,4 +94,14 @@ public class AdjacencyMatrix {
     {
         return adj;
     }
+    
+    public boolean wasVisited(int input)
+    {
+        return vertexList[input].getVisited();
+    }
+    
+    public void setVisited(int input, boolean change)
+    {
+        vertexList[input].setWasVisted(change);
+    }
 }
