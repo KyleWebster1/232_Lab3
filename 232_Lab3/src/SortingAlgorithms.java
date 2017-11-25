@@ -1,3 +1,4 @@
+import java.lang.Math;
 
 public class SortingAlgorithms {
 	AdjacencyMatrix aj;
@@ -49,41 +50,48 @@ public class SortingAlgorithms {
 
 	private void kruskalsAlgorithm() {
 		System.out.println("Kruskals Algorithm");
+		AdjacencyMatrix newAdjMatrix = new AdjacencyMatrix();
+		int[][] adjMatrix = newAdjMatrix.getAdjacencyMatrix();
 
-		int[][] adjMatrix = {{0,50,-1,80,-1},{-1,0,60,90,-1},{-1,-1,0,-1,40},{-1,-1,20,0,70},{-1,50,-1,-1,0}};
-		int length = aj.getLength();
-		boolean[][] adjMatrixLowestWeight = new boolean[adjMatrix.length][adjMatrix[0].length];
-		int row = 0;
+		int length = aj.getLength(); // amount of vertices
+		boolean[][] adjMatrixLowestWeight = new boolean[adjMatrix.length][adjMatrix[0].length]; // False
+																								// True
+																								// is
+																								// take
+																								// array
+		int row = 0; // coordinates
 		int col = 0;
-		int lowestWeight = 100000;
-		boolean complete = false;
+		int lowestWeight = 100000; // comparable variable
+		boolean complete = false; // while loop variable
+		int edgeCount = 0; // counting the edges for an exit
 		while (complete == false) {
+			if (edgeCount == (length - 1)) { // Check for the right amount of
+												// edges.
+				complete = true;
+				break;
+			}
 			for (int i = 0; i < adjMatrix.length; i++) {
 				for (int j = 0; j < adjMatrix[i].length; j++) {
 					if (adjMatrix[i][j] < lowestWeight && adjMatrixLowestWeight[i][j] != true && adjMatrix[i][j] > 0) {
-						lowestWeight = adjMatrix[i][j];
+						lowestWeight = adjMatrix[i][j];// This takes the lowest
+														// weight and writes its
+														// coordinates
 						row = i;
 						col = j;
-						
+
 					}
 				}
 			}
-			adjMatrixLowestWeight[row][col] = true;
-			if(aj.wasVisited(row) == false || aj.wasVisited(col) == false){
-				System.out.println(aj.getVertex(row) + "->" + aj.getVertex(col) + "weight: " + adjMatrix[row][col] );
-				aj.setVisited(row, true);
-				aj.setVisited(col, true);
-			}
-			for(int i = 0; i < length; i++){
-				int count = 0;
-				if(aj.wasVisited(i) == true){
-					count++;
-				}
-				if(length == count){
-					complete = true;
-				}
-			}
-			
+			adjMatrixLowestWeight[row][col] = true;// Sets the coordinates to
+													// taken
+
+			System.out.println(aj.getVertex(row) + "->" + aj.getVertex(col) + " weight: " + adjMatrix[row][col]); // Prints
+																													// the
+																													// edge
+			aj.setVisited(row, true);// The vertices are visited
+			aj.setVisited(col, true);
+
+			edgeCount++;
 			lowestWeight = 100000;
 		}
 		for (int i = 0; i < length; i++) {
@@ -93,7 +101,66 @@ public class SortingAlgorithms {
 	}
 
 	private void floydWarshallsAlgorithm() {
+		System.out.println("--------------");
+		System.out.println();
 		System.out.println("Floyd's Algorithm");
+		// This is a mess....
+		AdjacencyMatrix newAdjMatrix = new AdjacencyMatrix();
+		int[][] adjMatrix = newAdjMatrix.getAdjacencyMatrix();
+
+		for (int i = 0; i < adjMatrix.length; i++) {
+			for (int j = 0; j < adjMatrix.length; j++) {
+				if (adjMatrix[i][j] == -1) {
+					adjMatrix[i][j] = (int) Double.POSITIVE_INFINITY; // Sets
+																		// all
+																		// -1 to
+																		// infinity
+				}
+			}
+		}
+
+		for (int h = 0; h < adjMatrix.length; h++) {
+			for (int i = 0; i < adjMatrix.length; i++) {
+				for (int j = 0; j < adjMatrix.length; j++) {
+					if (adjMatrix[i][h] != (int) Double.POSITIVE_INFINITY
+							&& adjMatrix[h][j] != (int) Double.POSITIVE_INFINITY) {
+						if (adjMatrix[i][h] + adjMatrix[h][j] < adjMatrix[i][j]) { // Floyd's
+																					// Algorithm
+							adjMatrix[i][j] = adjMatrix[i][h] + adjMatrix[h][j];
+
+						}
+
+						// adjMatrix[i][j] = Math.min(adjMatrix[i][h]
+						// +adjMatrix[h][j], adjMatrix[i][j]);
+					}
+				}
+			}
+			for (int k = 0; k < adjMatrix.length; k++) { // Printing.
+				for (int l = 0; l < adjMatrix.length; l++) {
+					if (adjMatrix[k][l] != (int) Double.POSITIVE_INFINITY) {
+						System.out.print(adjMatrix[k][l] + " ");
+					} else {
+						System.out.print("INF ");
+					}
+
+				}
+				System.out.println();
+			}
+			System.out.println();
+			System.out.println();
+		}
+		System.out.println("Shortest Path Matrix");
+		for (int i = 0; i < adjMatrix.length; i++) { // Printing.
+			for (int j = 0; j < adjMatrix.length; j++) {
+				if (adjMatrix[i][j] != (int) Double.POSITIVE_INFINITY) {
+					System.out.print(adjMatrix[i][j] + " ");
+				} else {
+					System.out.print("INF ");
+				}
+
+			}
+			System.out.println();
+		}
 
 	}
 }
