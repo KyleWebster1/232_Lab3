@@ -1,6 +1,4 @@
-/**
- * Created by kylewebster1 on 10/30/17.
- */
+
 public class Vertex {
     // Class with constructor for vertexes.
         private char label; // Names the vertex

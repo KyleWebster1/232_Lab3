@@ -1,6 +1,6 @@
-/**
- * Created by kylewebster1 on 10/30/17.
- */
+// Kyle Webster and Jesse Arstein
+//Lab 3
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
